@@ -1,0 +1,12 @@
+<%= @event.name %>
+<%= @event.description %>
+
+<% @users.each do |user| %>
+  <%= link_to user.name , invites_path(event_invitee_id: user.id, invited_event_id: @event.id), method: :post %>
+<% end %>
+
+
+<h1> INVITEES </h1>
+<% @event.event_invitees.each do |user| %>
+  <%= link_to user.name , user_path(user) %>
+<% end %>
