@@ -1,12 +1,83 @@
-<%= @event.name %>
-<%= @event.description %>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="card">
+          <div class="card-header has-background-warning">
+            <h2 class="card-header-title is-size-4 is-capitalized">
+              <%= @event.name %>
+            </h2>
+          </div>
 
-<% @users.each do |user| %>
-  <%= link_to user.name , invites_path(event_invitee_id: user.id, invited_event_id: @event.id), method: :post %>
-<% end %>
+          <div class="card-content">
+            <div class="content columns is-mobile">
+              <div class="column">
+                <p class="is-capitalized">
+                  Hosted by: <%= @event.event_creator.name %>
+                </p>
+                <p>
+                  <%= @event.date.to_date %>
+                </p>
+              </div>
+              <div class="column">
+                <p class="button">
+                  Invited: <%= @event.event_invitees.count %>
+                </p>
+              </div>
+              <div class="column">
+                <p class="button">
+                  Attending: <%= @event.event_invitees.count %>
+                </p>
+            </div>
+            </div>
 
+            <div class="content">
+              <p class="has-text-justified notification">
+                <%= @event.description %>
+              </p>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="card-footer-item">
+              <p class="button is-fullwidth is-primary">
+                Attend
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <h2>Invite</h2>
+        <% @users.each do |user| %>
+          <div class="card">
+            <div class="card-header">
+              <%= link_to user.name , invites_path(event_invitee_id: user.id, invited_event_id: @event.id), method: :post %>
+            </div>
+            <div class="card-content">
+            </div>
+        
+          </div>     
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
 
 <h1> INVITEES </h1>
 <% @event.event_invitees.each do |user| %>
   <%= link_to user.name , user_path(user) %>
 <% end %>
+
+
+
+
+
