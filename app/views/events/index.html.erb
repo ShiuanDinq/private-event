@@ -1,8 +1,40 @@
-<h1>Events</h1>
-<% @events.each do |event| %>
-  <div>
-    <%= event.name %>
-    <%= event.event_creator.name %>
-  </div>
+<section class="section">
 
-<% end %>
+  <div class="container">
+    <h2 class="is-size-2 has-text-weight-bold">
+      Upcoming Events
+    </h2>
+    <div class="columns is-multiline">
+      <% @events.each do |event|%>
+          <div class="column is-one-third">
+            <%= link_to event do %>
+              <div class="card">
+                <div class="card-header has-background-warning">
+                  <p class="card-header-title is-capitalized is-size-5 is-centered">
+                    <%= event.name%>
+                  </p>
+                </div>
+              
+                <div class="card-content is-size-6 has-text-weight-light has-text-justified is-clipped" style="height: 100px">
+                  <%= event.description %>
+                </div>
+                
+                <div class="card-footer">
+                  <div class="card-footer-item">
+                    <%= event.date.strftime("%F")%>
+                  </div>
+                  <div class="card-footer-item has-text-centered">
+                    <%= event.event_creator.name %>
+                  </div>  
+                </div>
+              </div> 
+            <% end %>         
+          </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <%= render 'form' %>
+</section>

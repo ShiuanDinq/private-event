@@ -1,0 +1,10 @@
+<div class="column has-background-info">
+  <div>
+    <%= render 'form' %>
+  </div>
+  <% @events.each do |event|%>
+    <div>
+      <%= link_to event.name, event %>
+    </div>
+  <% end %>
+</div>
