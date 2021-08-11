@@ -1,0 +1,38 @@
+<%= @event.name %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="card column has-background-danger is-half">
+        <div class="card-header">
+          <div class="card-header-title">
+            Guest List
+          </div>
+        </div>
+        <div class="card-content">
+          <% @users.each do |user|%>
+            <div class="columns">
+              <div class="column is-one-third">
+                <%= user.name %>
+              </div>
+              <% if @event.event_invitees.where(id: user).exists? %>
+                <div class="column is-one-third">
+                  <p class="button">
+                    <% invite = @event.invites.find_by(event_invitee_id: user.id) %>
+                    <%= link_to 'uninvite' , invite_path(invite), method: :delete %>
+                  </p>
+                </div>
+              <% else %>
+                <div class="column is-one-third">
+                  <p class="button">
+                    <%= link_to 'invite' , invites_path(event_invitee_id: user.id, invited_event_id: @event.id), method: :post %>
+                  </p>
+                </div>
+              <% end %>
+            </div>
+          <% end %>   
+        </div>       
+      </div>
+    </div>
+  </div>
+</section>

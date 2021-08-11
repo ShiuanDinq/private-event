@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { registrations:'registrations' }
   resources :users
   resources :events 
   resources :invites
+  resources :attendances
 
   root "events#index"
 

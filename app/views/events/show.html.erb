@@ -20,15 +20,57 @@
                 </p>
               </div>
               <div class="column">
-                <p class="button">
-                  Invited: <%= @event.event_invitees.count %>
-                </p>
+                <div class="dropdown is-hoverable">
+                  <div class="dropdown-trigger">
+                    <div class="button" style="width: 150px">
+                      <span>
+                        Invited: <%= @event.event_invitees.count %>
+                      </span>
+                      <span class="icon is-small">
+                        <i class="fas fa-angle-down"></i>
+                      </span>
+                    </div>
+                    <div class="dropdown-menu">
+                      <div class="dropdown-content" style="width: 150px">
+                        <% @event.event_invitees.each do |invitee| %>
+                          <div class="dropdown-item">
+                            <span>
+                              <%= invitee.name %>
+                            </span>
+                          </div>
+                        <% end %>  
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
               <div class="column">
-                <p class="button">
-                  Attending: <%= @event.event_invitees.count %>
-                </p>
-            </div>
+                <div class="dropdown is-hoverable">
+                  <div class="dropdown-trigger">
+                    <div class="button style="width: 150px">
+                      <span>
+                        Attending: <%= @event.event_attendees.count %>
+                      </span>
+                      <span class="icon is-small">
+                        <i class="fas fa-angle-down"></i>
+                      </span>
+                    </div>
+                    <div class="dropdown-menu">
+                      <div class="dropdown-content" style="width: 150px">
+                        <% @event.event_attendees.each do |attendee| %>
+                          <div class="dropdown-item">
+                            <span>
+                              <%= attendee.name %>
+                            </span>
+                          </div>
+                        <% end %>  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             <div class="content">
@@ -39,11 +81,29 @@
           </div>
 
           <div class="card-footer">
-            <div class="card-footer-item">
-              <p class="button is-fullwidth is-primary">
-                Attend
-              </p>
-            </div>
+            <% if @attendances.where(event_attendee_id: current_user.id).exists? %>
+              <% attendance = @attendances.find_by(event_attendee_id: current_user.id) %>
+              <div class="card-footer-item">
+                <p class="button is-fullwidth is-primary">
+                  <%= link_to 'Cancel', attendance_path(attendance), method: :delete %>
+                </p>
+              </div>
+            <% elsif @event.event_invitees.exists?(id: current_user.id) %>
+              <div class="card-footer-item">
+                <p class="button is-fullwidth is-primary">
+                  <%= link_to 'Attend' , attendances_path(event_attendee_id: current_user.id, attended_event_id: @event.id), method: :post %>
+                </p>
+              </div>
+            <% end %>
+
+            <% if current_user == @event.event_creator %>
+              <div class="card-footer-item">
+                <p class="button is-fullwidth is-warning">
+                  <%= link_to 'Manage Guest' , users_path(invited_event_id: @event.id) %>
+                </p>
+              </div>
+            <% end %>
+
           </div>
         </div>
       </div>
@@ -52,30 +112,6 @@
 </section>
 
 
-<section class="section">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <h2>Invite</h2>
-        <% @users.each do |user| %>
-          <div class="card">
-            <div class="card-header">
-              <%= link_to user.name , invites_path(event_invitee_id: user.id, invited_event_id: @event.id), method: :post %>
-            </div>
-            <div class="card-content">
-            </div>
-        
-          </div>     
-        <% end %>
-      </div>
-    </div>
-  </div>
-</section>
-
-<h1> INVITEES </h1>
-<% @event.event_invitees.each do |user| %>
-  <%= link_to user.name , user_path(user) %>
-<% end %>
 
 
 
