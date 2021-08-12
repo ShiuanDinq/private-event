@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  validates :name, presence: true
   has_many :created_events, foreign_key: :event_creator_id, class_name: "Event", dependent: :destroy
   has_many :invites, foreign_key: :event_invitee_id, dependent: :destroy
   has_many :invited_events, through: :invites

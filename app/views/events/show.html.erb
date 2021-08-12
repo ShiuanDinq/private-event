@@ -102,7 +102,7 @@
           <div class="card-footer">
             <% if user_signed_in? %>
               <% if attendance_status %>
-                <% attendance = @event.attendances.select{|item| item.event_attendee_id == current_user} %>
+                <% attendance = @event.attendances.select{|item| item.event_attendee_id == current_user.id} %>
                 <div class="card-footer-item">
                   <p class="button is-fullwidth is-primary">
                     <%= link_to 'Cancel' , attendance_path(attendance), method: :delete %>
