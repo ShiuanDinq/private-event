@@ -1,0 +1,42 @@
+<div class="columns is-multiline">
+<% events.each do |event|%>
+    <div class="column is-one-third">
+      <%= link_to event do %>
+        <div class="card">
+
+
+        <% if user_signed_in? %>
+          <% if event.event_attendees.where(id: current_user.id).exists? %>
+            <div class="card-header has-background-primary">
+          <% elsif event.event_invitees.where(id: current_user.id).exists?%>
+            <div class="card-header has-background-warning">
+          <% else %>
+            <div class="card-header has-background-light">
+          <% end %>
+        <% else %>
+          <div class="card-header has-background-light">
+        <% end %>
+            <p class="card-header-title is-capitalized is-size-5 is-centered">
+              <%= event.name%>
+            </p>
+          </div>
+
+          
+        
+          <div class="card-content is-size-6 has-text-weight-light has-text-justified is-clipped" style="height: 100px">
+            <%= event.description %>
+          </div>
+          
+          <div class="card-footer">
+            <div class="card-footer-item">
+              <%= event.date.strftime("%F")%>
+            </div>
+            <div class="card-footer-item has-text-centered">
+              <%= event.event_creator.name %>
+            </div>  
+          </div>
+        </div> 
+      <% end %>         
+    </div>
+<% end %>
+</div>

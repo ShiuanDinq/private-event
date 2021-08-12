@@ -1,4 +1,27 @@
-<h1> hello </h1>
-<h1> hello </h1>
-<h1> hello </h1>
-<%= @user.name %>
+<section class="section">
+<div class="container">
+  <div class="columns">
+    <div class="column ">
+      <h2 class="is-size-2 has-text-weight-bold">
+        Create Events
+      </h2>
+      <%= render 'events/form' %>
+    </div>
+    <div class="column">
+      <h2 class="is-size-2 has-text-weight-bold">
+        Organized Events
+      </h2>
+      <%= render 'events/events', events:@user.created_events %>
+
+      <h2 class="is-size-2 has-text-weight-bold">
+        Invited Events
+      </h2>
+      <%= render 'events/events', events:@user.invited_events %>
+    </div>
+  </div>
+</div>
+
+
+</section>
+
+

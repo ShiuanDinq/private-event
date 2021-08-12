@@ -27,8 +27,16 @@
         <%= link_to root_path, class: "navbar-item" do %>
           <h1 class="title is-5">Private</h1>
         <% end %>
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+
+      </a>
       </div>
-      <div class="navbar-menu">
+
+
+      <div class="navbar-menu" id="navMenu">
           <div class="navbar-end">
             <div class="navbar-item">
               <p>
@@ -44,7 +52,14 @@
               <p>
                 <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: "button" %>
               </p>
-          </div>
+            </div>
+            <% if user_signed_in? %>
+              <div class="navbar-item">
+                <p>
+                  <%= link_to current_user.name , current_user, class: "button" %>
+                </p>
+              </div>
+            <% end %>
           </div>
       </div>
 

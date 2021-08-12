@@ -11,3 +11,8 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+console.log('haha');
+const burger = document.querySelector(".navbar-burger")
+burger.addEventListener("onclick", () => {console.log('haha')});
+

@@ -1,14 +1,10 @@
 class EventsController < ApplicationController
   def index
     @events = Event.all
-    @event = Event.new
   end
 
   def show
     @event = Event.find(params[:id])
-    @users = User.all
-    @attendances = Attendance.all
-    @invites = Invite.all
   end
 
   def new
@@ -23,6 +19,12 @@ class EventsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    event = Event.find(params[:id])
+    event.destroy
+    redirect_to root_path
   end
 
 

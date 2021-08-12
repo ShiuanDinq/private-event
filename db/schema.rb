@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2021_08_10_135058) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "event_invitee_id"
     t.integer "invited_event_id"
+    t.boolean "status"
   end
 
   create_table "users", force: :cascade do |t|

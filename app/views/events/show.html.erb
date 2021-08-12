@@ -3,7 +3,17 @@
     <div class="columns is-centered">
       <div class="column is-half">
         <div class="card">
-          <div class="card-header has-background-warning">
+          <% if user_signed_in? %>
+            <% if @event.event_attendees.where(id: current_user.id).exists? %>
+              <div class="card-header has-background-primary">
+            <% elsif @event.event_invitees.where(id: current_user.id).exists?%>
+              <div class="card-header has-background-warning">
+            <% else %>
+              <div class="card-header has-background-light">
+            <% end %>
+          <% else %>
+            <div class="card-header has-background-light">
+          <% end %>
             <h2 class="card-header-title is-size-4 is-capitalized">
               <%= @event.name %>
             </h2>
@@ -81,14 +91,14 @@
           </div>
 
           <div class="card-footer">
-            <% if @attendances.where(event_attendee_id: current_user.id).exists? %>
-              <% attendance = @attendances.find_by(event_attendee_id: current_user.id) %>
+            <% if @event.event_attendees.where(id: current_user.id).exists? %>
+              <% attendance = @event.attendances.find_by(event_attendee_id: current_user) %>
               <div class="card-footer-item">
                 <p class="button is-fullwidth is-primary">
-                  <%= link_to 'Cancel', attendance_path(attendance), method: :delete %>
+                  <%= link_to 'Cancel' , attendance_path(attendance), method: :delete %>
                 </p>
               </div>
-            <% elsif @event.event_invitees.exists?(id: current_user.id) %>
+            <% elsif @event.event_invitees.where(id: current_user.id).exists? %>
               <div class="card-footer-item">
                 <p class="button is-fullwidth is-primary">
                   <%= link_to 'Attend' , attendances_path(event_attendee_id: current_user.id, attended_event_id: @event.id), method: :post %>
@@ -102,6 +112,11 @@
                   <%= link_to 'Manage Guest' , users_path(invited_event_id: @event.id) %>
                 </p>
               </div>
+              <div class="card-footer-item">
+              <p class="button is-fullwidth is-danger">
+                <%= link_to 'Cancel Event' , event_path, method: :delete %>
+              </p>
+            </div>
             <% end %>
 
           </div>
