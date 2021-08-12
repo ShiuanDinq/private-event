@@ -39,6 +39,33 @@ input:focus {
     outline: none !important;
     border:1px solid red;
     box-shadow: 0 0 10px #719ECE;
-  }
+}
+
+.columns{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.column-right {
+  display:flex; 
+  flex-direction:row; 
+  justify-content: center;
+  align-items: center;
+}
+
+.column-right > *{
+  margin-right: 0.5rem
+}
+
+.column-left {
+  display:flex; 
+  flex-direction:row; 
+  justify-content: center;
+  align-items: center;
+}
+
+
 
 
