@@ -1,8 +1,10 @@
 <%= form_with model: @event do |form| %>
+  <div id="event-form">
     <%= form.text_field :name, placeholder: 'Name' %>
     <%= form.text_field :description, placeholder: 'Description' %>
     <%= form.datetime_field :date, placeholder: ''%>
     <%= form.text_field :venue, placeholder: 'Venue' %>
     <%= form.submit %>
+  </div>
 <% end %>
 
