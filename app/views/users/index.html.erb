@@ -1,37 +1,49 @@
-<%= @event.name %>
-
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
-      <div class="card column has-background-danger is-half">
+      <div class="card column is-half">
         <div class="card-header">
-          <div class="card-header-title">
+          <div class="card-header-title has-background-danger is-centered is-size-4">
             Guest List
           </div>
         </div>
         <div class="card-content">
+
           <% @users.each do |user|%>
-            <div class="columns">
+            <% status = @invitees.include?(user) %>
+
+            <div class="columns notification">
               <div class="column is-one-third">
                 <%= user.name %>
               </div>
-              <% if @event.event_invitees.where(id: user).exists? %>
+              <div class="column is-one-third">
+                <% if status %>
+                <p class="has-text-primary">invited</p>
+                <% end %>
+              </div>
+              <% if status %>
                 <div class="column is-one-third">
-                  <p class="button">
-                    <% invite = @event.invites.find_by(event_invitee_id: user.id) %>
-                    <%= link_to 'uninvite' , invite_path(invite), method: :delete %>
-                  </p>
+                  <% invite = @invites.select{|item| item.event_invitee_id == user.id} %>
+                  <%= link_to invite_path(invite), method: :delete, class: "button" do %>
+                    <p style="width: 100px">uninvite</p>
+                  <% end %>
                 </div>
               <% else %>
                 <div class="column is-one-third">
-                  <p class="button">
-                    <%= link_to 'invite' , invites_path(event_invitee_id: user.id, invited_event_id: @event.id), method: :post %>
-                  </p>
+                  <%= link_to invites_path(event_invitee_id: user.id, invited_event_id: @event.id), method: :post, class: "button" do %>
+                    <p style="width: 100px">invite</p>
+                  <% end %>
                 </div>
               <% end %>
             </div>
           <% end %>   
-        </div>       
+        </div> 
+        
+        <div class="card-footer">
+          <%= link_to @event ,class: "button is-fullwidth is-primary" do %>
+            <p class="is-size-4 has-text-black">Back</p>
+          <% end %>            
+        </div>
       </div>
     </div>
   </div>

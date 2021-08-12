@@ -1,10 +1,14 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all
+    @upcoming = Event.upcoming.includes(:event_invitees, :event_attendees, :event_creator).to_a
+    @past = Event.past.includes(:event_invitees, :event_attendees, :event_creator).to_a 
   end
 
+
   def show
-    @event = Event.find(params[:id])
+    @event = Event.includes(:event_creator, :event_invitees, :event_attendees).find(params[:id])
+    @invitees = User.joins(:invited_events).where(:invited_events => {:name => @event.name}).to_a
+    @attendees = User.joins(:attended_events).where(:attended_events => {:name => @event.name}).to_a
   end
 
   def new
@@ -40,7 +44,6 @@ class EventsController < ApplicationController
     event.destroy
     redirect_to root_path
   end
-
 
 
   private

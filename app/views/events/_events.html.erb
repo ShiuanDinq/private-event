@@ -1,3 +1,4 @@
+
 <div class="columns is-multiline">
 <% events.each do |event|%>
     <div class="column is-one-third">
@@ -6,9 +7,9 @@
 
 
         <% if user_signed_in? %>
-          <% if event.event_attendees.where(id: current_user.id).exists? %>
+          <% if event.event_attendees.include?(current_user) %>
             <div class="card-header has-background-primary">
-          <% elsif event.event_invitees.where(id: current_user.id).exists?%>
+          <% elsif event.event_invitees.include?(current_user) %>
             <div class="card-header has-background-warning">
           <% else %>
             <div class="card-header has-background-light">

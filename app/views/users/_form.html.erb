@@ -1,0 +1,29 @@
+<style>
+
+
+  input {
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 90%;
+    height: 2rem;
+  }
+
+  input:focus {
+      outline: none !important;
+      border:1px solid red;
+      box-shadow: 0 0 10px #719ECE;
+    }
+  }
+
+</style>
+
+<%= form_with model: @event do |form| %>
+  <div class="columns is-centered">
+    <div class="column is-half">
+    <%= form.text_field :name, placeholder: 'Name' %>
+    <%= form.text_field :description, placeholder: 'Description' %>
+    <%= form.datetime_field :date, placeholder: ''%>
+    <%= form.text_field :venue, placeholder: 'Venue' %>
+    <%= form.submit %>
+    </div>
+<% end %>

@@ -3,11 +3,11 @@
     <h2 class="is-size-2 has-text-weight-bold">
       Upcoming Events
     </h2>
-    <%= render 'events', events:@events.where('date > ?', DateTime.now)%>
+    <%= render 'events', events:@upcoming %>
     <h2 class="is-size-2 has-text-weight-bold">
       Past Events
     </h2>
-    <%= render 'events', events:@events.where('date < ?', DateTime.now)%>
+    <%= render 'events', events:@past %>
   </div>
 </section>
 

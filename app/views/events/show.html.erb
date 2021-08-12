@@ -1,12 +1,14 @@
+<% invite_status = @invitees.include?(current_user) %> 
+<% attendance_status = @attendees.include?(current_user) %> 
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-half">
         <div class="card">
           <% if user_signed_in? %>
-            <% if @event.event_attendees.where(id: current_user.id).exists? %>
+            <% if attendance_status %>
               <div class="card-header has-background-primary">
-            <% elsif @event.event_invitees.where(id: current_user.id).exists?%>
+            <% elsif invite_status %>
               <div class="card-header has-background-warning">
             <% else %>
               <div class="card-header has-background-light">
@@ -41,7 +43,7 @@
                   <div class="dropdown-trigger">
                     <div class="button" style="width: 150px">
                       <span>
-                        Invited: <%= @event.event_invitees.count %>
+                        Invited: <%= @event.event_invitees.length %>
                       </span>
                       <span class="icon is-small">
                         <i class="fas fa-angle-down"></i>
@@ -67,7 +69,7 @@
                   <div class="dropdown-trigger">
                     <div class="button style="width: 150px">
                       <span>
-                        Attending: <%= @event.event_attendees.count %>
+                        Attending: <%= @event.event_attendees.length %>
                       </span>
                       <span class="icon is-small">
                         <i class="fas fa-angle-down"></i>
@@ -99,14 +101,14 @@
 
           <div class="card-footer">
             <% if user_signed_in? %>
-              <% if @event.event_attendees.where(id: current_user.id).exists? %>
-                <% attendance = @event.attendances.find_by(event_attendee_id: current_user) %>
+              <% if attendance_status %>
+                <% attendance = @event.attendances.select{|item| item.event_attendee_id == current_user} %>
                 <div class="card-footer-item">
                   <p class="button is-fullwidth is-primary">
                     <%= link_to 'Cancel' , attendance_path(attendance), method: :delete %>
                   </p>
                 </div>
-              <% elsif @event.event_invitees.where(id: current_user.id).exists? %>
+              <% elsif invite_status %>
                 <div class="card-footer-item">
                   <p class="button is-fullwidth is-primary">
                     <%= link_to 'Attend' , attendances_path(event_attendee_id: current_user.id, attended_event_id: @event.id), method: :post %>
