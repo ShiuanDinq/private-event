@@ -22,34 +22,46 @@
       </div>      
     <% end %>
 
-
-	<div class="columns is-mobile is-marginless heading has-text-weight-bold has-background-dark">
-		<div class="column-left">
-      <div >
-        <%= link_to root_path do %>
-          <h1 class="title is-4 has-text-white">Private</h1>
-        <% end %>
+    <nav class="navbar has-background-black">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <%= link_to root_path do %>
+            <h1 class="title is-3 has-text-white">Private</h1>
+          <% end %>
+        </div>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-		</div>
-    <div class="column-right">
-      <% if user_signed_in? %>
-        <p >
-          <%= link_to current_user.name , current_user, class: "button" %>
-        </p>
-        <p>
-          <%= link_to 'Edit User', edit_registration_path(current_user), class: "button" %>
-        </p>
-        <p >
-          <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: "button" %>
-        </p>
-      <% else %> 
-        <p>
-          <%= link_to 'Sign In', new_user_session_path, class: "button" %>
-        </p>
-      <% end %>
-  </div>
 
-</div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <% if user_signed_in? %>
+          <div class="navbar-item">
+            <%= link_to current_user.name , current_user, class: "button" %>
+          </div>
+          <div class="navbar-item">
+            <%= link_to 'Edit User', edit_registration_path(current_user), class: "button" %>
+          </div>
+          <div class="navbar-item">
+            <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: "button" %>
+          </div>
+        <% else %> 
+          <div class="navbar-item">
+            <%= link_to 'Sign In', new_user_session_path, class: "button" %>
+          </div>
+          <div class="navbar-item">
+            <%= link_to 'Sign Up', new_user_registration_path, class: "button" %>
+          </div>
+
+        <% end %>
+                
+        </div>
+      </div>
+    </nav>
+
 
   
     <%= yield %>
