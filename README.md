@@ -1,24 +1,11 @@
-# README
+# private-events
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Event-brite clone app - ruby on rails
 
-Things you may want to cover:
+Part of 'The Odin Project' curriculum
 
-* Ruby version
+https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-on-rails/lessons/private-events
 
-* System dependencies
+Check it live here:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+https://privateevent.herokuapp.com/
